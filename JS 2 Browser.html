@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none; /* This ensures that the circles don't interfere with mouse events */
+        }
+
+        #circle4 { 
+            background-color: lightblue;
+            width: 65px;
+            height: 65px;
+         }
+        #circle1 { 
+            background-color: lightcoral; 
+            width: 100px;
+            height: 100px;
+        }
+        #circle3 { 
+            background-color: lightgreen; 
+            width: 70px;
+            height: 70px;
+        }
+        #circle2 {
+            background-color: lightgoldenrodyellow; 
+            width: 85px;
+            height: 85px;
+        }
+        #circle5 {
+            background-color: lightgray; 
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="circle1" class="circle"></div>
+    <div id="circle2" class="circle"></div>
+    <div id="circle3" class="circle"></div>
+    <div id="circle4" class="circle"></div> 
+    <div id="circle5" class="circle"></div> 
+</body>
+<script>
+    const circleChannel = new BroadcastChannel("circle_channel");
+
+    function circleMovement(event, circleId, delay) {
+        const x = event.clientX;
+        const y = event.clientY;
+        const circle = document.getElementById(circleId);
+
+        setTimeout(() => {
+            circle.style.left = x + "px";
+            circle.style.right = "";
+            circle.style.top = y + "px";
+
+            circleChannel.postMessage({ circleId, x, y });
+        }, delay);
+    }
+
+    function handleCircleMessage(event) {
+        const { circleId, x, y } = event.data;
+        const circle = document.getElementById(circleId);
+
+        circle.style.right = x + "px";
+        circle.style.left = "";
+        circle.style.top = y + "px";
+    }
+
+    const circleIds = ["circle1", "circle2", "circle3", "circle4", "circle5"]; // Add more circle IDs as needed
+    const delays = [0, 100, 200, 300,400]; // Add delay values in milliseconds for each circle
+
+    circleIds.forEach((circleId, index) => {
+        circleChannel.onmessage = (event) => handleCircleMessage(event, circleId);
+        addEventListener("mousemove", (event) => circleMovement(event, circleId, delays[index]));
+    });
+</script>
+</html>

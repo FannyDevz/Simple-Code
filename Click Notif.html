@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifikasi Desktop</title>
+</head>
+<body>
+
+<button onclick="showNotification()">Klik untuk Notifikasi</button>
+
+<script>
+  function showNotification() {
+    // Periksa apakah browser mendukung notifikasi desktop
+    if ('Notification' in window) {
+      // Minta izin untuk menampilkan notifikasi
+      Notification.requestPermission().then(function(permission) {
+        if (permission === 'granted') {
+          // Tampilkan notifikasi jika izin diberikan
+          var notification = new Notification('Notifikasi Desktop', {
+            body: 'Ini adalah contoh notifikasi desktop.'
+          });
+          console.log("test")
+        }
+      });
+    } else {
+      alert('Browser Anda tidak mendukung notifikasi desktop.');
+    }
+  }
+</script>
+
+</body>
+</html>

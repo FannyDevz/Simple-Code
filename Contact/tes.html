@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Program Tombol</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <button class="button" onclick="showPopup()"><img src="telephone-icon.png" alt="Telepon"></button>
+    <div class="popup" id="popupContent">
+        <div class="button-maskot">
+            <img src="maskot.png" alt="Maskot" class="maskot-img">
+        </div>
+        <div class="content">
+            <div class="header">
+                <img src="logo.png" alt="Logo" class="logo-img">
+                <h2>Hubungi Kami</h2>
+            </div>
+            <div class="platforms">
+                <a href="#" class="platform">
+                    <img src="whatsapp.png" alt="WhatsApp" class="platform-img">
+                    <span>Hubungi melalui WhatsApp</span>
+                </a>
+                <a href="#" class="platform">
+                    <img src="telegram.png" alt="Telegram" class="platform-img">
+                    <span>Hubungi melalui Telegram</span>
+                </a>
+            </div>
+        </div>
+        <button class="close-button" onclick="hidePopup()" >×</button>
+    </div>
+</div>
+
+
+<script>
+    function showPopup() {
+        var popup = document.getElementById("popupContent");
+        popup.style.display = "block";
+    }
+
+    function hidePopup() {
+        var popup = document.getElementById("popupContent");
+        popup.style.display = "none";
+    }
+
+</script>
+</body>
+</html>
